@@ -4,7 +4,7 @@ CREATE TABLE table_products(
     PRIMARY KEY(id)
 );
 CREATE TABLE table_categories(
-    id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+    id INT NOT NULL IDENTITY(1,1),
     name TEXT NOT NULL
 );
 CREATE TABLE table_products_categories(
