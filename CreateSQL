@@ -1,0 +1,47 @@
+CREATE TABLE table_products(
+    id INT NOT NULL  IDENTITY(1,1),
+    name TEXT NOT NULL,
+    PRIMARY KEY(id)
+);
+CREATE TABLE table_categories(
+    id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+    name TEXT NOT NULL
+);
+CREATE TABLE table_products_categories(
+    id INT NOT NULL IDENTITY(1,1),
+    product_id INT NOT NULL REFERENCES table_products(id) ON DELETE CASCADE,
+    category_id INT NOT NULL REFERENCES table_categories(id) ON DELETE CASCADE
+);
+
+INSERT INTO db_products.dbo.table_products (name)
+VALUES (N'product 1');
+
+INSERT INTO db_products.dbo.table_products (name)
+VALUES (N'product 2');
+
+INSERT INTO db_products.dbo.table_products (name)
+VALUES (N'product 3');
+
+INSERT INTO db_products.dbo.table_categories (name)
+VALUES (N'cat 1');
+
+INSERT INTO db_products.dbo.table_categories (name)
+VALUES (N'cat 2');
+
+INSERT INTO db_products.dbo.table_categories (name)
+VALUES (N'cat 3');
+
+INSERT INTO db_products.dbo.table_products_categories (product_id, category_id)
+VALUES (1, 1);
+
+INSERT INTO db_products.dbo.table_products_categories (product_id, category_id)
+VALUES (1, 2);
+
+INSERT INTO db_products.dbo.table_products_categories (product_id, category_id)
+VALUES (2, 2);
+
+SELECT table_products.name AS product_name,
+       table_categories.name AS category_name
+FROM table_products
+LEFT JOIN table_products_categories ON table_products.id = table_products_categories.product_id
+LEFT JOIN table_categories ON table_categories.id = table_products_categories.category_id;
